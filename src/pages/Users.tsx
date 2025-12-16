@@ -92,7 +92,7 @@ export default function Users() {
   const [isAddUserOpen, setIsAddUserOpen] = useState(false);
 
   // Redirect non-admins
-  if (user?.role !== 'admin') {
+  if ((user?.role as unknown as string) !== 'admin') {
     navigate('/dashboard');
     return null;
   }

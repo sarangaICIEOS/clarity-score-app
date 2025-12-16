@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { ProtectedLayout } from "@/components/ProtectedLayout";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
@@ -14,10 +15,16 @@ import Reviews from "./pages/Reviews";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
+import Admin from "./pages/Admin";
+import Developer from "./pages/Developer";
+import Reporter from "./pages/Reporter";
+import BA from "./pages/BA";
+import ProjectDashboard from './pages/ProjectDashboard';
+import SprintConfiguration from './pages/SprintConfiguration';
+import ClarityScoreForm from './pages/ClarityScoreForm';
 
 const queryClient = new QueryClient();
 
-// Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -35,7 +42,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
     return <Navigate to="/login" replace />;
   }
 
-  return <>{children}</>;
+  return <ProtectedLayout>{children}</ProtectedLayout>;
 }
 
 function AppRoutes() {
@@ -55,7 +62,7 @@ function AppRoutes() {
         path="/projects"
         element={
           <ProtectedRoute>
-            <Projects />
+            <ProjectDashboard />
           </ProtectedRoute>
         }
       />
@@ -96,6 +103,54 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <Settings />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/developer"
+        element={
+          <ProtectedRoute>
+            <Developer />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/reporter"
+        element={
+          <ProtectedRoute>
+            <Reporter />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/ba"
+        element={
+          <ProtectedRoute>
+            <BA />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/sprint-configuration"
+        element={
+          <ProtectedRoute>
+            <SprintConfiguration />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/clarity-score-form"
+        element={
+          <ProtectedRoute>
+            <ClarityScoreForm />
           </ProtectedRoute>
         }
       />

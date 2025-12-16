@@ -126,8 +126,8 @@ export default function Reviews() {
   const [selectedReview, setSelectedReview] = useState<ReviewSubmission | null>(null);
   const [rejectionReason, setRejectionReason] = useState('');
 
-  const isReporter = user?.role === 'reporter';
-  const isBA = user?.role === 'ba';
+  const isReporter = (user?.role as unknown as string) === 'reporter';
+  const isBA = (user?.role as unknown as string) === 'ba';
 
   const pendingReviews = mockReviews.filter(r => r.status === 'pending');
   const completedReviews = mockReviews.filter(r => r.status !== 'pending');
